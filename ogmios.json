@@ -11,9 +11,14 @@
   , "EvaluateTransaction", "EvaluateTransactionResponse"
 
   , "AcquireLedgerState", "AcquireLedgerStateResponse"
+  , "QueryLedgerStateConstitution", "QueryLedgerStateConstitutionResponse"
+  , "QueryLedgerStateConstitutionalCommittee", "QueryLedgerStateConstitutionalCommitteeResponse"
+  , "QueryLedgerStateDump", "QueryLedgerStateDumpResponse"
+  , "QueryLedgerStateDelegateRepresentatives", "QueryLedgerStateDelegateRepresentativesResponse"
   , "QueryLedgerStateEpoch", "QueryLedgerStateEpochResponse"
   , "QueryLedgerStateEraStart", "QueryLedgerStateEraStartResponse"
   , "QueryLedgerStateEraSummaries", "QueryLedgerStateEraSummariesResponse"
+  , "QueryLedgerStateGovernanceProposals", "QueryLedgerStateGovernanceProposalsResponse"
   , "QueryLedgerStateLiveStakeDistribution", "QueryLedgerStateLiveStakeDistributionResponse"
   , "QueryLedgerStateProjectedRewards", "QueryLedgerStateProjectedRewardsResponse"
   , "QueryLedgerStateProposedProtocolParameters", "QueryLedgerStateProposedProtocolParametersResponse"
@@ -22,6 +27,7 @@
   , "QueryLedgerStateRewardsProvenance", "QueryLedgerStateRewardsProvenanceResponse"
   , "QueryLedgerStateStakePools", "QueryLedgerStateStakePoolsResponse"
   , "QueryLedgerStateTip", "QueryLedgerStateTipResponse"
+  , "QueryLedgerStateTreasuryAndReserves", "QueryLedgerStateTreasuryAndReservesResponse"
   , "QueryLedgerStateUtxo", "QueryLedgerStateUtxoResponse"
   , "QueryNetworkBlockHeight", "QueryNetworkBlockHeightResponse"
   , "QueryNetworkGenesisConfiguration", "QueryNetworkGenesisConfigurationResponse"
@@ -665,9 +671,13 @@
       , "method":
         { "type": "string"
         , "enum":
-          [ "queryLedgerState/epoch"
+          [ "queryLedgerState/constitution"
+          , "queryLedgerState/constitutionalCommittee"
+          , "queryLedgerState/delegateRepresentatives"
+          , "queryLedgerState/epoch"
           , "queryLedgerState/eraStart"
           , "queryLedgerState/eraSummaries"
+          , "queryLedgerState/governanceProposals"
           , "queryLedgerState/liveStakeDistribution"
           , "queryLedgerState/projectedRewards"
           , "queryLedgerState/protocolParameters"
@@ -677,6 +687,7 @@
           , "queryLedgerState/stakePools"
           , "queryLedgerState/utxo"
           , "queryLedgerState/tip"
+          , "queryLedgerState/treasuryAndReserves"
           ]
         }
       , "error":
@@ -709,9 +720,13 @@
       , "method":
         { "type": "string"
         , "enum":
-          [ "queryLedgerState/epoch"
+          [ "queryLedgerState/constitution"
+          , "queryLedgerState/constitutionalCommittee"
+          , "queryLedgerState/delegateRepresentatives"
+          , "queryLedgerState/epoch"
           , "queryLedgerState/eraStart"
           , "queryLedgerState/eraSummaries"
+          , "queryLedgerState/governanceProposals"
           , "queryLedgerState/liveStakeDistribution"
           , "queryLedgerState/projectedRewards"
           , "queryLedgerState/protocolParameters"
@@ -721,6 +736,7 @@
           , "queryLedgerState/stakePools"
           , "queryLedgerState/utxo"
           , "queryLedgerState/tip"
+          , "queryLedgerState/treasuryAndReserves"
           ]
         }
       , "error":
@@ -739,7 +755,7 @@
       }
     }
 
-  , "QueryLedgerStateAcquiredExpire" :
+  , "QueryLedgerStateAcquiredExpired" :
     { "title": "QueryLedgerStateAcquiredExpired"
     , "type": "object"
     , "required": [ "jsonrpc", "method", "error" ]
@@ -752,9 +768,13 @@
       , "method":
         { "type": "string"
         , "enum":
-          [ "queryLedgerState/epoch"
+          [ "queryLedgerState/constitution"
+          , "queryLedgerState/constitutionalCommittee"
+          , "queryLedgerState/delegateRepresentatives"
+          , "queryLedgerState/epoch"
           , "queryLedgerState/eraStart"
           , "queryLedgerState/eraSummaries"
+          , "queryLedgerState/governanceProposals"
           , "queryLedgerState/liveStakeDistribution"
           , "queryLedgerState/projectedRewards"
           , "queryLedgerState/protocolParameters"
@@ -764,6 +784,7 @@
           , "queryLedgerState/stakePools"
           , "queryLedgerState/utxo"
           , "queryLedgerState/tip"
+          , "queryLedgerState/treasuryAndReserves"
           ]
         }
       , "error":
@@ -781,6 +802,240 @@
         { "description": "Any value that was set by a client request in the 'id' field."
         }
       }
+    }
+
+  , "QueryLedgerStateConstitution":
+    { "title": "QueryLedgerStateConstitution"
+    , "description": "Query the current constitution definition (only available from Conway onwards)."
+    , "type": "object"
+    , "required": [ "jsonrpc", "method" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryLedgerState/constitution" ]
+        }
+      , "id":
+        { "description": "An arbitrary JSON value that will be mirrored back in the response."
+        }
+      }
+    }
+
+  , "QueryLedgerStateConstitutionResponse":
+    { "oneOf":
+      [ { "title": "QueryLedgerStateConstitutionResponse"
+        , "type": "object"
+        , "required": [ "jsonrpc", "method", "result" ]
+        , "additionalProperties": false
+        , "properties":
+          { "jsonrpc":
+            { "type": "string"
+            , "enum": [ "2.0" ]
+            }
+          , "method":
+            { "type": "string"
+            , "enum": [ "queryLedgerState/constitution" ]
+            }
+          , "result":
+            { "$ref": "cardano.json#/definitions/Constitution"
+            }
+          , "id":
+            { "description": "Any value that was set by a client request in the 'id' field."
+            }
+          }
+        }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
+      ]
+    }
+
+  , "QueryLedgerStateConstitutionalCommittee":
+    { "title": "QueryLedgerStateConstitutionalCommittee"
+    , "description": "Get the state of the constitutional committee (only available from Conway onwards)."
+    , "type": "object"
+    , "required": [ "jsonrpc", "method" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryLedgerState/constitutionalCommittee" ]
+        }
+      , "id":
+        { "description": "An arbitrary JSON value that will be mirrored back in the response."
+        }
+      }
+    }
+
+  , "QueryLedgerStateConstitutionalCommitteeResponse":
+    { "oneOf":
+      [ { "title": "QueryLedgerStateConstitutionalCommitteeResponse"
+        , "type": "object"
+        , "required": [ "jsonrpc", "method", "result" ]
+        , "additionalProperties": false
+        , "properties":
+          { "jsonrpc":
+            { "type": "string"
+            , "enum": [ "2.0" ]
+            }
+          , "method":
+            { "type": "string"
+            , "enum": [ "queryLedgerState/constitutionalCommittee" ]
+            }
+          , "result":
+            { "oneOf":
+              [ { "type": "null" }
+              , { "type": "object"
+                , "additionalProperties": false
+                , "required": [ "members", "quorum" ]
+                , "properties":
+                  { "members":
+                    { "type": "array"
+                    , "items": { "$ref": "cardano.json#/definitions/ConstitutionalCommitteeMember" }
+                    }
+                  , "quorum":
+                    { "oneOf":
+                      [ { "type": "null" }
+                      , { "$ref": "cardano.json#/definitions/Ratio" }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          , "id":
+            { "description": "Any value that was set by a client request in the 'id' field."
+            }
+          }
+        }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
+      ]
+    }
+
+  , "QueryLedgerStateDelegateRepresentatives":
+    { "title": "QueryLedgerStateDelegateRepresentatives"
+    , "description": "Query currently registered delegate representatives, their stake (i.e. voting powers) and metadata about them. Note that 'params' is optional and can be used to filter out delegates. When omitted, ALL delegates are returned. Pre-defined options (always abstain and always no confidence) are ALWAYS returned."
+    , "type": "object"
+    , "required": [ "jsonrpc", "method" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryLedgerState/delegateRepresentatives" ]
+        }
+      , "params":
+        { "type": "object"
+        , "additionalProperties": false
+        , "properties":
+          { "scripts":
+            { "type": "array"
+            , "items": { "$ref": "ogmios.json#/definitions/AnyDelegateRepresentativeCredential" }
+            }
+          , "keys":
+            { "type": "array"
+            , "items": { "$ref": "ogmios.json#/definitions/AnyDelegateRepresentativeCredential" }
+            }
+          }
+        }
+      , "id":
+        { "description": "An arbitrary JSON value that will be mirrored back in the response."
+        }
+      }
+    }
+
+  , "QueryLedgerStateDelegateRepresentativesResponse":
+    { "oneOf":
+      [ { "title": "QueryLedgerStateDelegateRepresentativesResponse"
+        , "type": "object"
+        , "required": [ "jsonrpc", "method", "result" ]
+        , "additionalProperties": false
+        , "properties":
+          { "jsonrpc":
+            { "type": "string"
+            , "enum": [ "2.0" ]
+            }
+          , "method":
+            { "type": "string"
+            , "enum": [ "queryLedgerState/delegateRepresentatives" ]
+            }
+          , "result":
+            { "type": "array"
+            , "items": { "$ref": "cardano.json#/definitions/DelegateRepresentativeSummary" }
+            }
+          , "id":
+            { "description": "Any value that was set by a client request in the 'id' field."
+            }
+          }
+        }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
+      ]
+    }
+
+  , "QueryLedgerStateDump":
+    { "title": "QueryLedgerStateDump"
+    , "description": "Get a dump of the entire Cardano ledger state (base16-encoded CBOR) corresponding to the 'EpochState'. Use at your own risks."
+    , "type": "object"
+    , "required": [ "jsonrpc", "method" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryLedgerState/dump" ]
+        }
+      , "id":
+        { "description": "An arbitrary JSON value that will be mirrored back in the response."
+        }
+      }
+    }
+
+  , "QueryLedgerStateDumpResponse":
+    { "oneOf":
+      [ { "title": "QueryLedgerStateDumpResponse"
+        , "type": "object"
+        , "required": [ "jsonrpc", "method", "result" ]
+        , "additionalProperties": false
+        , "properties":
+          { "jsonrpc":
+            { "type": "string"
+            , "enum": [ "2.0" ]
+            }
+          , "method":
+            { "type": "string"
+            , "enum": [ "queryLedgerState/dump" ]
+            }
+          , "result":
+            { "type": "string"
+            , "contentEncoding": "base16"
+            }
+          , "id":
+            { "description": "Any value that was set by a client request in the 'id' field."
+            }
+          }
+        }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
+      ]
     }
 
   , "QueryLedgerStateEpoch":
@@ -829,7 +1084,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -879,7 +1134,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -930,7 +1185,77 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
+      ]
+    }
+
+  , "QueryLedgerStateGovernanceProposals":
+    { "title": "QueryLedgerStateGovernanceProposals"
+    , "description": "Query currently active governance proposals, optionally restricted to specific governance proposal references."
+    , "type": "object"
+    , "required": [ "jsonrpc", "method" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryLedgerState/governanceProposals" ]
+        }
+      , "params":
+        { "oneOf":
+          [ { "title": "GovernanceProposalsByReferences"
+            , "type": "object"
+            , "required": ["proposals"]
+            , "additionalProperties": false
+            , "properties":
+              { "proposals":
+                { "type": "array"
+                , "items": { "$ref": "cardano.json#/definitions/GovernanceProposalReference" }
+                }
+              }
+            }
+          , { "title": "WholeGovernanceProposals"
+            , "type": "object"
+            , "additionalProperties": false
+            }
+          ]
+        }
+      , "id":
+        { "description": "An arbitrary JSON value that will be mirrored back in the response."
+        }
+      }
+    }
+
+  , "QueryLedgerStateGovernanceProposalsResponse":
+    { "oneOf":
+      [ { "title": "QueryLedgerStateGovernanceProposalsResponse"
+        , "type": "object"
+        , "required": [ "jsonrpc", "method", "result" ]
+        , "additionalProperties": false
+        , "properties":
+          { "jsonrpc":
+            { "type": "string"
+            , "enum": [ "2.0" ]
+            }
+          , "method":
+            { "type": "string"
+            , "enum": [ "queryLedgerState/governanceProposals" ]
+            }
+          , "result":
+            { "type": "array"
+            , "items": { "$ref": "cardano.json#/definitions/GovernanceProposalState" }
+            }
+          , "id":
+            { "description": "Any value that was set by a client request in the 'id' field."
+            }
+          }
+        }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -980,7 +1305,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1048,7 +1373,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1101,7 +1426,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1151,7 +1476,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1218,7 +1543,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1268,7 +1593,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1290,9 +1615,12 @@
       , "params":
         { "type": "object"
         , "additionalProperties": false
-        , "required": [ "stakePools" ]
         , "properties":
-          { "stakePools":
+          { "includeStake":
+            { "type": "boolean"
+            , "description": "When provided and set to 'true', the result will also include the voting stake associated to each pool. This may take some additional time the first time this is queried within an epoch."
+            }
+          , "stakePools":
             { "type": "array"
             , "items":
               { "type": "object"
@@ -1338,7 +1666,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1388,7 +1716,63 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
+      ]
+    }
+
+  , "QueryLedgerStateTreasuryAndReserves":
+    { "title": "QueryLedgerStateTreasuryAndReserves"
+    , "description": "Query the Ada value of the treasury and reserves accounts."
+    , "type": "object"
+    , "required": [ "jsonrpc", "method" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryLedgerState/treasuryAndReserves" ]
+        }
+      , "id":
+        { "description": "An arbitrary JSON value that will be mirrored back in the response."
+        }
+      }
+    }
+
+  , "QueryLedgerStateTreasuryAndReservesResponse":
+    { "oneOf":
+      [ { "title": "QueryLedgerStateTreasuryAndReservesResponse"
+        , "type": "object"
+        , "required": [ "jsonrpc", "method", "result" ]
+        , "additionalProperties": false
+        , "properties":
+          { "jsonrpc":
+            { "type": "string"
+            , "enum": [ "2.0" ]
+            }
+          , "method":
+            { "type": "string"
+            , "enum": [ "queryLedgerState/treasuryAndReserves" ]
+            }
+          , "result":
+            { "type": "object"
+            , "required": [ "treasury", "reserves" ]
+            , "additionalProperties": false
+            , "properties":
+              { "treasury": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
+              , "reserves": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
+              }
+            }
+          , "id":
+            { "description": "Any value that was set by a client request in the 'id' field."
+            }
+          }
+        }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1468,7 +1852,7 @@
         }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateEraMismatch" }
       , { "$ref": "ogmios.json#/properties/QueryLedgerStateUnavailableInCurrentEra" }
-      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpire" }
+      , { "$ref": "ogmios.json#/properties/QueryLedgerStateAcquiredExpired" }
       ]
     }
 
@@ -1566,11 +1950,46 @@
         }
       , "result":
         { "oneOf":
-          [ { "$ref": "cardano.json#/definitions/Genesis<Byron>" }
-          , { "$ref": "cardano.json#/definitions/Genesis<Shelley>" }
-          , { "$ref": "cardano.json#/definitions/Genesis<Alonzo>"}
-          , { "$ref": "cardano.json#/definitions/Genesis<Conway>"}
+          [ { "$ref": "ogmios.json#/properties/QueryNetworkInvalidGenesis" }
+          , { "oneOf":
+              [ { "$ref": "cardano.json#/definitions/Genesis<Byron>" }
+              , { "$ref": "cardano.json#/definitions/Genesis<Shelley>" }
+              , { "$ref": "cardano.json#/definitions/Genesis<Alonzo>"}
+              , { "$ref": "cardano.json#/definitions/Genesis<Conway>"}
+              ]
+            }
           ]
+        }
+      , "id":
+        { "description": "Any value that was set by a client request in the 'id' field."
+        }
+      }
+    }
+
+  , "QueryNetworkInvalidGenesis":
+    { "title": "QueryNetworkInvalidGenesis"
+    , "type": "object"
+    , "required": [ "jsonrpc", "method", "result" ]
+    , "additionalProperties": false
+    , "properties":
+      { "jsonrpc":
+        { "type": "string"
+        , "enum": [ "2.0" ]
+        }
+      , "method":
+        { "type": "string"
+        , "enum": [ "queryNetwork/genesisConfiguration" ]
+        }
+      , "error":
+        { "description": "Something went wrong (e.g. misconfiguration) in reading genesis file for the latest era."
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 2004 ] }
+          , "message": { "type": "string" }
+          , "data": { "type": "string", "description": "A reason for the failure." }
+          }
         }
       , "id":
         { "description": "Any value that was set by a client request in the 'id' field."
@@ -2034,17 +2453,38 @@
   }
 
 , "definitions":
-  { "AnyStakeCredential":
+  { "_encodingBase16":
+      { "title": "Base16"
+      , "description": "A key or script hash in base16."
+      , "type": "string"
+      , "contentEncoding": "base16"
+      , "minLength": 56
+      , "maxLength": 56
+      }
+
+
+  , "AnyDelegateRepresentativeCredential":
+    { "title": "AnyDelegateRepresentativeCredential"
+    , "oneOf":
+      [ { "$ref": "ogmios.json#/definitions/_encodingBase16" }
+      , { "title": "Bech32<drep_vkh, drep_script>"
+        , "type": "string"
+        , "description": "A Blake2b 28-byte hash digest of a drep verification key or script."
+        , "contentEncoding": "bech32"
+        , "pattern": "^(drep_vkh|drep_script)1[0-9a-z]*$"
+        , "examples":
+          [ "drep_vkh12rtxfdsnnftykmpq2sw0uezgmh66zpr8t2mgr0rhmtm06ygr39j"
+          , "drep_script1mh66zpr8t2mgr0rhmtm065xkvjmp8xjkfdkzq4qulejyst8h2gg"
+          ]
+        }
+      ]
+    }
+
+  , "AnyStakeCredential":
     { "title": "AnyStakeCredential"
     , "oneOf":
-      [ { "title": "Base16"
-        , "description": "A stake key or script hash in base16."
-        , "type": "string"
-        , "contentEncoding": "base16"
-        , "minLength": 56
-        , "maxLength": 56
-        }
-      , { "title": "Bech32"
+      [ { "$ref": "ogmios.json#/definitions/_encodingBase16" }
+      , { "title": "Bech32<stake_vkh, script>"
         , "type": "string"
         , "description": "A Blake2b 28-byte hash digest of a verification key or script."
         , "contentEncoding": "bech32"
@@ -2306,8 +2746,9 @@
   , "RewardAccountSummary":
     { "type": "object"
     , "additionalProperties": false
+    , "required": [ "rewards", "deposit" ]
     , "properties":
-      { "delegate":
+      { "stakePool":
         { "type": "object"
         , "additionalProperties": false
         , "required": [ "id" ]
@@ -2315,13 +2756,23 @@
           { "id": { "$ref": "cardano.json#/definitions/StakePoolId" }
           }
         }
+      , "delegateRepresentative": { "$ref": "cardano.json#/definitions/DelegateRepresentative" }
       , "rewards": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
+      , "deposit": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
       }
     , "examples":
-      [ { "bc1597ad71c55d2d009a9274b3831ded155118dd769f5376decc1369":
-          { "delegate": "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj"
-          , "rewards": 219558722
-          }
+      [ { "stakePool": "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj"
+        , "rewards": { "ada": { "lovelace": 219558722 } }
+        , "deposit": { "ada": { "lovelace": 2000000 } }
+        }
+      , { "delegateRepresentative": { "type": "abstain" }
+        , "rewards": { "ada": { "lovelace": 0 } }
+        , "deposit": { "ada": { "lovelace": 2000000 } }
+        }
+      , { "stakePool": "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj"
+        , "delegateRepresentative": { "type": "abstain" }
+        , "rewards": { "ada": { "lovelace": 12462615 } }
+        , "deposit": { "ada": { "lovelace": 2000000 } }
         }
       ]
     }
@@ -2335,6 +2786,7 @@
       , "stakePoolPledgeInfluence"
       , "totalRewardsInEpoch"
       , "activeStakeInEpoch"
+      , "totalStakeInEpoch"
       , "stakePools"
       ]
     , "properties":
@@ -2356,6 +2808,9 @@
       , "totalRewardsInEpoch":
         { "$ref": "cardano.json#/definitions/Value<AdaOnly>"
         }
+      , "totalStakeInEpoch":
+        { "$ref": "cardano.json#/definitions/Value<AdaOnly>"
+        }
       , "activeStakeInEpoch":
         { "$ref": "cardano.json#/definitions/Value<AdaOnly>"
         }
@@ -2370,7 +2825,7 @@
   , "ScriptExecutionFailure":
     { "oneOf":
       [ { "title": "ScriptExecutionFailure<InvalidRedeemerPointers>"
-        , "description": "An associated script witness is missing. Indeed, any script used in a transaction (when spending, minting, withdrawing or publishing certificates) must be provided in full with the transaction. Scripts must therefore be added either to the witness set or provided as a reference inputs should you use Plutus V2+ and a format from Babbage and beyond. They must also be correctly referenced by a redeemer pointer but here, some pointer failed to resolved to a valid script."
+        , "description": "Some script witnesses are missing. Indeed, any script used in a transaction (when spending, minting, etc...) must be provided in full with the transaction. Scripts must therefore be added either to the witness set or provided as a reference input should you use plutus:v2 or higher and a format from Babbage and beyond. The field 'data.missingScripts' contain hash digests of required but missing script."
         , "type": "object"
         , "additionalProperties": false
         , "required": [ "code", "message", "data" ]
@@ -2434,7 +2889,7 @@
       , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<MissingDatums>" }
       , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<UnknownOutputReference>" }
       , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<MissingCostModels>" }
-      , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<InternalLedgerTypeConversionError>" }
+      , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<ExecutionBudgetOutOfBounds>" }
       ]
     }
 
@@ -3043,7 +3498,7 @@
             , "additionalProperties": false
             , "required": [ "providedCollateral", "minimumRequiredCollateral" ]
             , "properties":
-              { "providedCollateral": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
+              { "providedCollateral": { "$ref": "cardano.json#/definitions/Value<Delta>" }
               , "minimumRequiredCollateral": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
               }
             }
@@ -3168,7 +3623,7 @@
             , "required": [ "declaredTotalCollateral", "computedTotalCollateral" ]
             , "properties":
               { "declaredTotalCollateral": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
-              , "computedTotalCollateral": { "$ref": "cardano.json#/definitions/Value<AdaOnly>" }
+              , "computedTotalCollateral": { "$ref": "cardano.json#/definitions/Value<Delta>" }
               }
             }
           }
@@ -3184,7 +3639,7 @@
           , "data":
             { "type": "object"
             , "additionalProperties": false
-            , "required": [ "spends", "mismatchReason" ]
+            , "required": [ "declaredSpending", "mismatchReason" ]
             , "properties":
               { "declaredSpending": { "$ref": "cardano.json#/definitions/InputSource" }
               , "mismatchReason": { "type": "string" }
@@ -3365,9 +3820,10 @@
           , "data":
             { "type": "object"
             , "additionalProperties": false
-            , "required": [ "knownCredential" ]
+            , "required": [ "knownCredential", "from" ]
             , "properties":
               { "knownCredential": { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+              , "from": { "$ref": "cardano.json#/definitions/CredentialOrigin" }
               }
             }
           }
@@ -3383,9 +3839,10 @@
           , "data":
             { "type": "object"
             , "additionalProperties": false
-            , "required": [ "unknownCredential" ]
+            , "required": [ "unknownCredential", "from" ]
             , "properties":
               { "unknownCredential": { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+              , "from": { "$ref": "cardano.json#/definitions/CredentialOrigin" }
               }
             }
           }
@@ -3525,9 +3982,10 @@
               { "unknownConstitutionalCommitteeMember":
                 { "type": "object"
                 , "additionalProperties": false
-                , "required": [ "id" ]
+                , "required": [ "id", "from" ]
                 , "properties":
                   { "id": { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+                  , "from": { "$ref": "cardano.json#/definitions/CredentialOrigin" }
                   }
                 }
               }
@@ -3575,9 +4033,10 @@
                 , "items":
                   { "type": "object"
                   , "additionalProperties": false
-                  , "required": [ "id" ]
+                  , "required": [ "id", "from" ]
                   , "properties":
                     { "id": { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+                    , "from": { "$ref": "cardano.json#/definitions/CredentialOrigin" }
                     }
                   }
                 }
@@ -3599,11 +4058,15 @@
             , "additionalProperties": false
             , "properties":
               { "alreadyRetiredMembers":
-                { "type": "object"
-                , "additionalProperties": false
-                , "required": [ "id" ]
-                , "properties":
-                  { "id": { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+                { "type": "array"
+                , "items":
+                  { "type": "object"
+                  , "additionalProperties": false
+                  , "required": [ "id", "from" ]
+                  , "properties":
+                    { "id": { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+                    , "from": { "$ref": "cardano.json#/definitions/CredentialOrigin" }
+                    }
                   }
                 }
               }
@@ -3626,7 +4089,7 @@
               { "providedWithdrawal":
                 { "$ref": "cardano.json#/definitions/Value<AdaOnly>"
                 }
-              , "expectedWithdrawal":
+              , "computedWithdrawal":
                 { "$ref": "cardano.json#/definitions/Value<AdaOnly>"
                 }
               }
@@ -3650,10 +4113,10 @@
                 { "type": "array"
                 , "items":
                   { "type": "object"
-                  , "required": [ "anchor", "type" ]
+                  , "required": [ "metadata", "type" ]
                   , "additionalProperties": false
                   , "properties":
-                    { "anchor":
+                    { "metadata":
                       { "$ref": "cardano.json#/definitions/Anchor"
                       }
                     , "type":
@@ -3704,6 +4167,147 @@
             }
           }
         }
+      , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<ExecutionBudgetOutOfBounds>" }
+      , { "title": "SubmitTransactionFailure<InvalidHardForkVersionBump>"
+        , "description": "The new proposed version for a hard-fork isn't a valid version bump. The version (major, minor, patch) follows strict rules which can be summarized as follow: (1) the new triplet must be greater than the current one in the usual order of priorities (i.e. 'major' -> 'minor' -> 'patch'), (2) 'minor' must be 0 if 'major' is bumped, (3) 'minor' can only be bumped in increments of 1 and only if 'major' isn't bumped and (4) 'major' can only be bumped in increments of 1. The field 'data.proposedVersion' indicates the (invalid) version in the submitted proposal whereas 'data.currentVersion' indicates the current protocol version."
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3162 ] }
+          , "message": { "type": "string" }
+          , "data":
+            { "type": "object"
+            , "additionalProperties": false
+            , "required": [ "proposedVersion", "currentVersion" ]
+            , "properties":
+              { "proposedVersion": { "$ref": "cardano.json#/definitions/ProtocolVersion" }
+              , "currentVersion": { "$ref": "cardano.json#/definitions/ProtocolVersion" }
+              }
+            }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<ConstitutionGuardrailsHashMismatch>"
+        , "description": "The provided constitution guardrails hash doesn't match the expected on defined in the constitution. Some governance actions such as treasury withdrawals or protocol parameters updates must correctly refer to the constitution guardrails hash digest. The latter can be 'null'. The field 'data.providedHash' indicates the hash provided in the proposal, and the field 'data.expectedHash' the one specified in the constitution"
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3163 ] }
+          , "message": { "type": "string" }
+          , "data":
+            { "type": "object"
+            , "additionalProperties": false
+            , "required": [ "providedHash", "expectedHash" ]
+            , "properties":
+              { "providedHash":
+                { "oneOf":
+                  [ { "$ref": "cardano.json#/definitions/Null" }
+                  , { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+                  ]
+                }
+              , "expectedHash":
+                { "oneOf":
+                  [ { "$ref": "cardano.json#/definitions/Null" }
+                  , { "$ref": "cardano.json#/definitions/Digest<Blake2b, 224>" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<ConflictingInputsAndReferences>"
+        , "description": "Identical UTxO references were found in both the transaction inputs and references. This is redundant and no longer allowed by the ledger. Indeed, if the a UTxO is present in the inputs set, it is already in the transaction context. The field 'data.conflictingReferences' contains the culprit references present in both sets."
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3164 ] }
+          , "message": { "type": "string" }
+          , "data":
+            { "type": "object"
+            , "additionalProperties": false
+            , "required": [ "conflictingReferences" ]
+            , "properties":
+              { "conflictingReferences":
+                { "type": "array"
+                , "items": { "$ref": "cardano.json#/definitions/TransactionOutputReference" }
+                }
+              }
+            }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<UnauthorizedGovernanceAction>"
+        , "description": "The ledger is still in a bootstrapping phase. During that phase, only protocol parameters changes, hard fork initiations and info actions are authorized. The transaction contains other types of governance action and was therefore rejected"
+        , "type": "object"
+        , "required": [ "code", "message" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3165 ] }
+          , "message": { "type": "string" }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<ReferenceScriptsTooLarge>"
+        , "description": ""
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3166 ] }
+          , "message": { "type": "string" }
+          , "data":
+            { "type": "object"
+            , "additionalProperties": false
+            , "required": [ "measuredReferenceScriptsSize", "maximumReferenceScriptsSize" ]
+            , "properties":
+              { "measuredReferenceScriptsSize": { "$ref": "cardano.json#/definitions/NumberOfBytes" }
+              , "maximumReferenceScriptsSize": { "$ref": "cardano.json#/definitions/NumberOfBytes" }
+              }
+            }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<UnknownVoters>"
+        , "description": "Some voters in the transaction are unknown. Voters must correspond to registered credentials present in the ledger. They can possibly be registered in the same block, but it must imperatively happens before they are used for voting. The field 'data.unknownVoters' indicates the credentials that couldn't be mapped to any known voter."
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3167 ] }
+          , "message": { "type": "string" }
+          , "data":
+            { "type": "object"
+            , "additionalProperties": false
+            , "required": [ "unknownVoters" ]
+            , "properties":
+              { "unknownVoters":
+                { "type": "array"
+                , "items": { "$ref": "cardano.json#/definitions/GovernanceVoter" }
+                }
+              }
+            }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<EmptyTreasuryWithdrawal>"
+        , "description": "Some proposals contain empty treasury withdrawals, which is pointless and a waste of resources."
+        , "type": "object"
+        , "required": [ "code", "message" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3168 ] }
+          , "message": { "type": "string" }
+          }
+        }
+      , { "title": "SubmitTransactionFailure<UnexpectedMempoolError>"
+        , "description": "A transaction was rejected due to custom rules that prevented it from entering the mempool. A justification is given as 'data.error'."
+        , "type": "object"
+        , "required": [ "code", "message", "data" ]
+        , "additionalProperties": false
+        , "properties":
+          { "code": { "type": "integer", "enum": [ 3997 ] }
+          , "message": { "type": "string" }
+          , "data": { "error": { "type": "string" } }
+          }
+        }
       , { "title": "SubmitTransactionFailure<UnrecognizedCertificateType>"
         , "description": "Unrecognized certificate type. This error is a placeholder due to how internal data-types are modeled. If you ever run into this, please report the issue as you've likely discoverd a critical bug..."
         , "type": "object"
@@ -3714,7 +4318,6 @@
           , "message": { "type": "string" }
           }
         }
-      , { "$ref": "ogmios.json#/definitions/SubmitTransactionFailure<InternalLedgerTypeConversionError>" }
       ]
     }
   , "SubmitTransactionFailure<ExtraneousRedeemers>":
@@ -3809,15 +4412,25 @@
       }
     }
 
-  , "SubmitTransactionFailure<InternalLedgerTypeConversionError>":
-    { "title": "SubmitTransactionFailure<InternalLedgerTypeConversionError>"
-    , "description": "Whoopsie, the ledger failed to upgrade an data-type from an earlier era into data of a newer era. If you ever run into this, please report the issue as you've likely discoverd a critical bug..."
+  , "SubmitTransactionFailure<ExecutionBudgetOutOfBounds>":
+    { "title": "SubmitTransactionFailure<ExecutionBudgetOutOfBounds>"
+    , "description": "The transaction ran out of execution budget! This means that the budget granted for the execution of a particular script was too small or exceeding the maximum value allowed by the protocol. The field 'data.budgetUsed' indicates the actual execution units used by the validator before it was interrupted."
     , "type": "object"
-    , "required": [ "code", "message" ]
+    , "required": [ "code", "message", "data" ]
     , "additionalProperties": false
     , "properties":
-      { "code": { "type": "integer", "enum": [ 3999 ] }
+      { "code": { "type": "integer", "enum": [ 3161 ] }
       , "message": { "type": "string" }
+      , "data":
+        { "type": "object"
+        , "additionalProperties": false
+        , "required": [ "budgetUsed" ]
+        , "properties":
+          { "budgetUsed":
+            { "$ref": "cardano.json#/definitions/ExecutionUnits"
+            }
+          }
+        }
       }
     }
 
